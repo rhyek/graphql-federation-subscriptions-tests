@@ -1,13 +1,13 @@
 import { MessagesService } from '@app/services';
-import { Message } from '@app/types';
+import { Message, PubSub } from '@app/types';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { PubSub } from 'graphql-subscriptions';
-
-const pubSub = new PubSub();
 
 @Resolver(() => Message)
 export class MessageResolver {
-  constructor(private messagesService: MessagesService) {}
+  constructor(
+    private messagesService: MessagesService,
+    private pubSub: PubSub,
+  ) {}
 
   @Query(() => [Message])
   messages(): Promise<Message[]> {
@@ -20,12 +20,12 @@ export class MessageResolver {
     @Args('message', { type: () => String }) message: string,
   ): Promise<boolean> {
     const msg = await this.messagesService.addMessage(from, message);
-    pubSub.publish('messageAdded', { messageAdded: msg });
+    this.pubSub.publish('messageAdded', { messageAdded: msg });
     return true;
   }
 
   @Subscription(() => Message)
   messageAdded() {
-    return pubSub.asyncIterator('messageAdded');
+    return this.pubSub.asyncIterator('messageAdded');
   }
 }

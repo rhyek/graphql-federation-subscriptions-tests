@@ -1,8 +1,9 @@
 import path from 'path';
 import { Module } from '@nestjs/common';
 import { GraphQLFederationModule, GraphQLModule } from '@nestjs/graphql';
-import { ServicesModule } from '@app/services';
 import pkgDir from 'pkg-dir';
+import { ServicesModule } from '@app/services';
+import { InfrastructureModule } from '@app/infrastructure';
 import { MessageResolver } from './message.resolver';
 
 @Module({
@@ -14,6 +15,7 @@ import { MessageResolver } from './message.resolver';
       installSubscriptionHandlers: true,
     }),
     ServicesModule,
+    InfrastructureModule,
   ],
   providers: [MessageResolver],
 })

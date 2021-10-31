@@ -1,0 +1,54 @@
+{
+  "collection": "@nestjs/schematics",
+  "compilerOptions": {
+    "webpack": false
+  },
+  "monorepo": true,
+  "projects": {
+    "services": {
+      "type": "library",
+      "root": "libs/services",
+      "entryFile": "index",
+      "sourceRoot": "libs/services/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/services/tsconfig.lib.json"
+      }
+    },
+    "types": {
+      "type": "library",
+      "root": "libs/types",
+      "entryFile": "index",
+      "sourceRoot": "libs/types/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/types/tsconfig.lib.json"
+      }
+    },
+    "gql-gateway": {
+      "type": "application",
+      "root": "apps/gql-gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/gql-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gql-gateway/tsconfig.app.json"
+      }
+    },
+    "gql-main": {
+      "type": "application",
+      "root": "apps/gql-main",
+      "entryFile": "main",
+      "sourceRoot": "apps/gql-main/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gql-main/tsconfig.app.json"
+      }
+    },
+    "gql-subscriptions": {
+      "type": "application",
+      "root": "apps/gql-subscriptions",
+      "entryFile": "main",
+      "sourceRoot": "apps/gql-subscriptions/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gql-subscriptions/tsconfig.app.json"
+      }
+    }
+  }
+}

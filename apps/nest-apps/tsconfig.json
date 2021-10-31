@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
+    "paths": {
+      "@app/services": [
+        "libs/services/src",
+        "libs/services/src"
+      ],
+      "@app/services/*": [
+        "libs/services/src/*",
+        "libs/services/src/*"
+      ],
+      "@app/types": [
+        "libs/types/src",
+        "libs/types/src"
+      ],
+      "@app/types/*": [
+        "libs/types/src/*",
+        "libs/types/src/*"
+      ]
+    }
+  }
+}

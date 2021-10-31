@@ -1,0 +1,21 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Message {
+  id: ID!
+  from: String!
+  message: String!
+}
+
+type Query {
+  messages: [Message!]!
+}
+
+type Mutation {
+  addMessage(message: String!, from: String!): Boolean!
+}
+
+type Subscription {
+  messageAdded: Message!
+}

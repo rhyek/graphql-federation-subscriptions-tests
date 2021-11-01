@@ -1,2 +1,3 @@
 export * from './services.module';
-export * from './messages.service';
+export * from './message.service';
+export * from './user.service';

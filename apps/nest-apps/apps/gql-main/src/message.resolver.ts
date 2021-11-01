@@ -1,18 +1,32 @@
-import { MessagesService } from '@app/services';
-import { Message, PubSub } from '@app/types';
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { MessageService, UserService } from '@app/services';
+import { Message, User, PubSub } from '@app/types';
 
 @Resolver(() => Message)
 export class MessageResolver {
   constructor(
-    private messagesService: MessagesService,
+    private messageService: MessageService,
+    private userService: UserService,
     private pubSub: PubSub,
   ) {}
 
   @Query(() => [Message])
   messages(): Promise<Message[]> {
     console.log('messages');
-    return this.messagesService.getAll();
+    return this.messageService.getAll();
+  }
+
+  @ResolveField(() => User)
+  user(@Parent() parent: Message): User {
+    const user = this.userService.find(parent.username);
+    return user;
   }
 
   @Mutation(() => Boolean)
@@ -20,7 +34,7 @@ export class MessageResolver {
     @Args('from', { type: () => String }) from: string,
     @Args('message', { type: () => String }) message: string,
   ): Promise<boolean> {
-    const msg = await this.messagesService.addMessage(from, message);
+    const msg = await this.messageService.addMessage(from, message);
     this.pubSub.publish('messageAdded', { messageAdded: msg });
     return true;
   }

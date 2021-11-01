@@ -1,13 +1,13 @@
-import { Message } from '@app/types';
 import { Injectable } from '@nestjs/common';
 import nanoid from 'nanoid';
+import { Message } from '@app/types';
 
 @Injectable()
-export class MessagesService {
+export class MessageService {
   private messages: Message[] = [
     {
       id: 'ssdsdsd',
-      from: 'carlos',
+      username: 'carlos',
       message: 'hello, world',
     },
   ];
@@ -19,7 +19,7 @@ export class MessagesService {
   async addMessage(from: string, message: string) {
     const msg = new Message();
     msg.id = nanoid.nanoid();
-    msg.from = from;
+    msg.username = from;
     msg.message = message;
     this.messages.push(msg);
     return msg;

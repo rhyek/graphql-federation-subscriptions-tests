@@ -10,16 +10,24 @@ import {
 
 type Message = {
   id: string;
-  from: string;
+  user: {
+    fullName: string;
+  };
   message: string;
 };
+
+const messageFields = `
+  id
+  user {
+    fullName
+  }
+  message
+`;
 
 const MESSAGES_QUERY = gql`
   query GetMessages {
     messages {
-      id
-      from
-      message
+      ${messageFields}
     }
   }
 `;
@@ -27,9 +35,7 @@ const MESSAGES_QUERY = gql`
 const MESSAGES_SUBSCRIPTION = gql`
   subscription OnMessageAdded {
     messageAdded {
-      id
-      from
-      message
+      ${messageFields}
     }
   }
 `;
@@ -159,20 +165,22 @@ export const Chat = memo<{ username: string }>(({ username }) => {
           {loading ? (
             <span>Loading...</span>
           ) : (
-            (data?.messages || []).map(({ id, from, message }) => (
-              <li key={id}>
-                <div>
-                  <strong>{from}:</strong>
-                </div>
-                <div
-                  style={{
-                    marginLeft: 20,
-                  }}
-                >
-                  <span>{message}</span>
-                </div>
-              </li>
-            ))
+            (data?.messages || []).map(
+              ({ id, user: { fullName }, message }) => (
+                <li key={id}>
+                  <div>
+                    <strong>{fullName}:</strong>
+                  </div>
+                  <div
+                    style={{
+                      marginLeft: 20,
+                    }}
+                  >
+                    <span>{message}</span>
+                  </div>
+                </li>
+              )
+            )
           )}
         </ul>
         <form

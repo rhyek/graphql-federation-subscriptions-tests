@@ -5,9 +5,12 @@ import pkgDir from 'pkg-dir';
 import { ServicesModule } from '@app/services';
 import { InfrastructureModule } from '@app/infrastructure';
 import { MessageResolver } from './message.resolver';
+import { UserResolver } from './user.resolver';
 
 @Module({
   imports: [
+    ServicesModule,
+    InfrastructureModule,
     MercuriusModule.forRoot({
       autoSchemaFile: path.resolve(pkgDir.sync(), './apps/gql-main/schema.gql'),
       // autoSchemaFile: true,
@@ -15,9 +18,7 @@ import { MessageResolver } from './message.resolver';
       // subscription: true,
       federationMetadata: true,
     }),
-    ServicesModule,
-    InfrastructureModule,
   ],
-  providers: [MessageResolver],
+  providers: [MessageResolver, UserResolver],
 })
 export class GqlMainModule {}

@@ -13,10 +13,9 @@ import { UserResolver } from './user.resolver';
     InfrastructureModule,
     MercuriusModule.forRoot({
       autoSchemaFile: path.resolve(pkgDir.sync(), './apps/gql-main/schema.gql'),
-      // autoSchemaFile: true,
       allowBatchedQueries: true,
-      // subscription: true,
       federationMetadata: true,
+      // subscription: true,
     }),
   ],
   providers: [MessageResolver, UserResolver],

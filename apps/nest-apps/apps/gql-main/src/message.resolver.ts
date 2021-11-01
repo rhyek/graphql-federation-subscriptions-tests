@@ -6,6 +6,11 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import {
+  LoaderQuery,
+  Reference,
+  ResolveReferenceLoader,
+} from 'nestjs-mercurius';
 import { MessageService, UserService } from '@app/services';
 import { Message, User, PubSub } from '@app/types';
 
@@ -39,9 +44,9 @@ export class MessageResolver {
     return true;
   }
 
-  // @Subscription(() => Message)
-  // messageAdded() {
-  //   console.log('subscribed to 1');
-  //   return this.pubSub.asyncIterator('messageAdded');
-  // }
+  @ResolveReferenceLoader()
+  resolveReference(refs: LoaderQuery<Reference<'Message', 'id'>>) {
+    console.log('resolve reference', refs);
+    return this.messageService.findById(refs.obj.id);
+  }
 }

@@ -16,18 +16,14 @@ type Message = {
   message: string;
 };
 
-const messageFields = `
-  id
-  user {
-    fullName
-  }
-  message
-`;
-
 const MESSAGES_QUERY = gql`
   query GetMessages {
     messages {
-      ${messageFields}
+      id
+      user {
+        fullName
+      }
+      message
     }
   }
 `;
@@ -35,7 +31,7 @@ const MESSAGES_QUERY = gql`
 const MESSAGES_SUBSCRIPTION = gql`
   subscription OnMessageAdded {
     messageAdded {
-      ${messageFields}
+      id
     }
   }
 `;
@@ -43,14 +39,6 @@ const MESSAGES_SUBSCRIPTION = gql`
 const ADD_MESSAGE_MUTATION = gql`
   mutation ADD_MESSAGE($from: String!, $message: String!) {
     addMessage(from: $from, message: $message)
-  }
-`;
-
-const TEST_MESSAGES_SUBSCRIPTION = gql`
-  subscription OnTestMessageAdded {
-    testMessageAdded {
-      text
-    }
   }
 `;
 
@@ -78,29 +66,35 @@ export const Chat = memo<{ username: string }>(({ username }) => {
     }
   }, [loading, scrollToBottom]);
 
-  useSubscription(TEST_MESSAGES_SUBSCRIPTION, {
-    onSubscriptionData: ({ subscriptionData: { data } }) => {
-      if (data) {
-        console.log('onTestMessage', data);
-      }
+  useSubscription(MESSAGES_SUBSCRIPTION, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      console.log('sub message', subscriptionData);
     },
   });
 
-  useEffect(() => {
-    // https://www.apollographql.com/docs/react/data/subscriptions/#subscribing-to-updates-for-a-query
-    const unsubscribe = subscribeToMore<{ messageAdded: Message }>({
-      document: MESSAGES_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        const { messageAdded } = subscriptionData.data;
-        scrollToBottom();
-        return {
-          messages: [...prev.messages, messageAdded],
-        };
-      },
-    });
-    return unsubscribe;
-  }, [subscribeToMore, scrollToBottom]);
+  // useSubscription(TEST_SUBSCRIPTION, {
+  //   onSubscriptionData: ({ subscriptionData }) => {
+  //     console.log('sub test', subscriptionData);
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   // https://www.apollographql.com/docs/react/data/subscriptions/#subscribing-to-updates-for-a-query
+  //   const unsubscribe = subscribeToMore<{ messageAdded: Message }>({
+  //     document: MESSAGES_SUBSCRIPTION,
+  //     updateQuery: (prev, { subscriptionData }) => {
+  //       console.log('subscriptionData', subscriptionData);
+  //       return prev;
+  //       // if (!subscriptionData.data) return prev;
+  //       // const { messageAdded } = subscriptionData.data;
+  //       // scrollToBottom();
+  //       // return {
+  //       //   messages: [...prev.messages, messageAdded],
+  //       // };
+  //     },
+  //   });
+  //   return unsubscribe;
+  // }, [subscribeToMore, scrollToBottom]);
 
   const [addMessage] = useMutation(ADD_MESSAGE_MUTATION);
 

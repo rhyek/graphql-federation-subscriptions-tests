@@ -16,6 +16,14 @@ export class MessageService {
     return this.messages;
   }
 
+  findById(id: string): Message {
+    const message = this.messages.find((message) => message.id === id);
+    if (!message) {
+      throw new Error('not found');
+    }
+    return message;
+  }
+
   async addMessage(from: string, message: string) {
     const msg = new Message();
     msg.id = nanoid.nanoid();

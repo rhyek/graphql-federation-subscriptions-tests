@@ -1,6 +1,10 @@
 {
 	"scripts": {
-		"dev": "concurrently --kill-others \"pnpm --filter={apps/frontend} start\" \"pnpm --filter={apps/nest-apps} start:dev gql-gateway\" \"pnpm --filter={apps/nest-apps} start:dev gql-main\" \"pnpm --filter={apps/nest-apps} start:dev gql-subscriptions\""
+		"dev": "concurrently --kill-others \"npm:dev:frontend\" \"npm:dev:gql-gateway\" \"npm:dev:gql-main\" \"npm:dev:gql-subs\"",
+		"dev:frontend": "pnpm --filter={apps/frontend} start",
+		"dev:gql-main": "pnpm --filter={apps/nest-apps} start:dev gql-main",
+		"dev:gql-subs": "pnpm --filter={apps/nest-apps} start:dev gql-subscriptions",
+		"dev:gql-gateway": "pnpm --filter={apps/nest-apps} start:dev gql-gateway"
 	},
 	"devDependencies": {
 		"concurrently": "^6.3.0"

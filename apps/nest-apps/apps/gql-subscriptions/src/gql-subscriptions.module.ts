@@ -3,12 +3,11 @@ import { MercuriusModule } from 'nestjs-mercurius';
 import path from 'path';
 import pkgDir from 'pkg-dir';
 import { InfrastructureModule } from '@app/infrastructure';
-import { TestResolver } from './test.resolver';
-import { Message } from '@app/types';
-import { MessageResolver } from './message.resolver';
+import { Message, MessageResolver } from './message.resolver';
 
 @Module({
   imports: [
+    InfrastructureModule,
     MercuriusModule.forRoot({
       autoSchemaFile: path.resolve(
         pkgDir.sync(),
@@ -21,8 +20,7 @@ import { MessageResolver } from './message.resolver';
       subscription: true,
       federationMetadata: true,
     }),
-    InfrastructureModule,
   ],
-  providers: [TestResolver, MessageResolver],
+  providers: [MessageResolver],
 })
 export class GqlSubscriptionsModule {}

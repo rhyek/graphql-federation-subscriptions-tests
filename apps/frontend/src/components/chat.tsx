@@ -1,4 +1,4 @@
-import { useMutation, useQuery, gql } from '@apollo/client';
+import { useMutation, useQuery, gql, useSubscription } from '@apollo/client';
 import {
   FormEventHandler,
   memo,
@@ -40,6 +40,14 @@ const ADD_MESSAGE_MUTATION = gql`
   }
 `;
 
+const TEST_MESSAGES_SUBSCRIPTION = gql`
+  subscription OnTestMessageAdded {
+    testMessageAdded {
+      text
+    }
+  }
+`;
+
 export const Chat = memo<{ username: string }>(({ username }) => {
   const ulRef = useRef<HTMLUListElement>(null);
   const textRef = useRef<HTMLInputElement>(null);
@@ -63,6 +71,14 @@ export const Chat = memo<{ username: string }>(({ username }) => {
       scrollToBottom();
     }
   }, [loading, scrollToBottom]);
+
+  useSubscription(TEST_MESSAGES_SUBSCRIPTION, {
+    onSubscriptionData: ({ subscriptionData: { data } }) => {
+      if (data) {
+        console.log('onTestMessage', data);
+      }
+    },
+  });
 
   useEffect(() => {
     // https://www.apollographql.com/docs/react/data/subscriptions/#subscribing-to-updates-for-a-query

@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"dev": "concurrently --kill-others \"pnpm --filter={apps/frontend} start\" \"pnpm --filter={apps/nest-apps} start:dev gql-main\""
+		"dev": "concurrently --kill-others \"pnpm --filter={apps/frontend} start\" \"pnpm --filter={apps/nest-apps} start:dev gql-gateway\" \"pnpm --filter={apps/nest-apps} start:dev gql-main\" \"pnpm --filter={apps/nest-apps} start:dev gql-subscriptions\""
 	},
 	"devDependencies": {
 		"concurrently": "^6.3.0"

@@ -1,16 +1,26 @@
 import { Module } from '@nestjs/common';
-import { GraphQLGatewayModule } from '@nestjs/graphql';
+import { MercuriusGatewayModule } from 'nestjs-mercurius';
 
 @Module({
   imports: [
-    GraphQLGatewayModule.forRoot({
-      server: {
-        // ... Apollo server options
-        cors: true,
-      },
+    MercuriusGatewayModule.forRoot({
+      graphiql: true,
+      subscription: true,
+      allowBatchedQueries: true,
       gateway: {
-        serviceList: [
-          { name: 'messages', url: 'http://localhost:3001/graphql' },
+        pollingInterval: 10000,
+        services: [
+          {
+            name: 'messages',
+            url: 'http://localhost:3001/graphql',
+            wsUrl: 'ws://localhost:3001/graphql',
+          },
+          // {
+          //   name: 'subscriptions',
+          //   url: 'http://localhost:3002/graphql',
+          //   wsUrl: 'ws://localhost:3002/graphql',
+          //   // rewriteHeaders: headers => headers,,
+          // },
         ],
       },
     }),

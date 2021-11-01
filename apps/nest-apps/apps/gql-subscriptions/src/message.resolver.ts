@@ -1,6 +1,13 @@
-import { ObjectType } from '@nestjs/graphql';
+import { Resolver, Subscription } from '@nestjs/graphql';
+import { Message, PubSub } from '@app/types';
 
-@ObjectType()
-export class TempMessage {}
+@Resolver(() => Message)
+export class MessageResolver {
+  constructor(private pubSub: PubSub) {}
 
-export class MessageResolver {}
+  @Subscription(() => Message)
+  messageAdded() {
+    console.log('subscribed to 3');
+    return this.pubSub.asyncIterator('messageAdded');
+  }
+}

@@ -8,10 +8,15 @@ type Message {
   message: String!
 }
 
-type Query {
-  messages: [Message!]!
+type TestMessage {
+  text: String!
 }
 
-type Mutation {
-  addMessage(message: String!, from: String!): Boolean!
+type Query {
+  noop: Boolean!
+}
+
+type Subscription {
+  testMessageAdded: TestMessage!
+  messageAdded: Message!
 }

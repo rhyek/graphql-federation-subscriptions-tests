@@ -11,6 +11,7 @@ export class MessageResolver {
 
   @Query(() => [Message])
   messages(): Promise<Message[]> {
+    console.log('messages');
     return this.messagesService.getAll();
   }
 
@@ -24,8 +25,9 @@ export class MessageResolver {
     return true;
   }
 
-  @Subscription(() => Message)
-  messageAdded() {
-    return this.pubSub.asyncIterator('messageAdded');
-  }
+  // @Subscription(() => Message)
+  // messageAdded() {
+  //   console.log('subscribed to 1');
+  //   return this.pubSub.asyncIterator('messageAdded');
+  // }
 }

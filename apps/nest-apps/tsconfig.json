@@ -22,19 +22,15 @@
     "paths": {
       "@app/services": [
         "libs/services/src",
-        "libs/services/src"
       ],
       "@app/services/*": [
         "libs/services/src/*",
-        "libs/services/src/*"
       ],
       "@app/types": [
         "libs/types/src",
-        "libs/types/src"
       ],
       "@app/types/*": [
         "libs/types/src/*",
-        "libs/types/src/*"
       ],
       "@app/infrastructure": [
         "libs/infrastructure/src"

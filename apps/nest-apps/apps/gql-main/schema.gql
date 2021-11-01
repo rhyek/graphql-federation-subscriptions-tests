@@ -4,8 +4,16 @@
 
 type Message {
   id: ID!
-  from: String!
+  username: String!
   message: String!
+  user: User!
+}
+
+type User {
+  username: ID!
+  firstName: String!
+  lastName: String!
+  fullName: String!
 }
 
 type Query {

@@ -1,4 +1,4 @@
-import { User } from '@app/types/user.type';
+import { User } from './user.type';
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 

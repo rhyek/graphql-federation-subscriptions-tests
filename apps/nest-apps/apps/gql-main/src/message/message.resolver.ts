@@ -7,8 +7,11 @@ import {
   Resolver,
   Subscription,
 } from '@nestjs/graphql';
-import { MessageService, UserService } from '@app/services';
-import { Message, User, PubSub } from '@app/types';
+import { PubSub } from '@app/types';
+import { Message } from './message.type';
+import { MessageService } from './message.service';
+import { User } from '../user/user.type';
+import { UserService } from '../user/user.service';
 
 @Resolver(() => Message)
 export class MessageResolver {
@@ -28,6 +31,11 @@ export class MessageResolver {
     const user = this.userService.find(parent.username);
     return user;
   }
+
+  // @ResolveField(() => User)
+  // user(@Parent() parent: Message): any {
+  //   return { __typename: 'User', username: parent.username };
+  // }
 
   @Mutation(() => Boolean)
   async addMessage(

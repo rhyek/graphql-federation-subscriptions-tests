@@ -2,18 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Message {
-  id: ID!
-  username: String!
-  message: String!
-  user: User!
-}
-
 type User {
   username: ID!
   firstName: String!
   lastName: String!
   fullName: String!
+}
+
+type Message {
+  id: ID!
+  username: String!
+  message: String!
+  user: User!
 }
 
 type Query {

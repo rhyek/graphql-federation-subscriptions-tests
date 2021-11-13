@@ -7,7 +7,7 @@ import { redisPubSub } from './redis-pubsub';
     {
       provide: PubSub,
       useValue: redisPubSub,
-    }
+    },
   ],
   exports: [PubSub],
 })

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import nanoid from 'nanoid';
-import { Message } from '@app/types';
+import { Message } from './message.type';
 
 @Injectable()
 export class MessageService {

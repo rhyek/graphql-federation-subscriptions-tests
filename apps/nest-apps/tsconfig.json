@@ -20,12 +20,6 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "paths": {
-      "@app/services": [
-        "libs/services/src",
-      ],
-      "@app/services/*": [
-        "libs/services/src/*",
-      ],
       "@app/types": [
         "libs/types/src",
       ],

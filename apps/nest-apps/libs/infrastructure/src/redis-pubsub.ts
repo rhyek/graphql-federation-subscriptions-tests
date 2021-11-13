@@ -7,10 +7,10 @@ const options: Redis.RedisOptions = {
   retryStrategy: (times) => {
     // reconnect after:
     return Math.min(times * 50, 2000);
-  }
+  },
 };
 
 export const redisPubSub = new RedisPubSub({
   publisher: new Redis(options),
-  subscriber: new Redis(options)
+  subscriber: new Redis(options),
 });

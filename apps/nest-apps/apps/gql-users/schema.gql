@@ -12,21 +12,13 @@ directive @requires(fields: String!) on FIELD_DEFINITION
 
 directive @provides(fields: String!) on FIELD_DEFINITION
 
-type Message {
-  id: ID!
-  username: String!
-  message: String!
-  user: User!
-}
-
 type User {
   username: ID!
+  firstName: String!
+  lastName: String!
+  fullName: String!
 }
 
 type Query {
-  messages: [Message!]!
-}
-
-type Mutation {
-  addMessage(message: String!, from: String!): Boolean!
+  users: [User!]!
 }

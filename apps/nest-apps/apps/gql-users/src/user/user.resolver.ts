@@ -1,5 +1,6 @@
 import {
   Parent,
+  Query,
   ResolveField,
   Resolver,
   ResolveReference,
@@ -11,11 +12,17 @@ import { User } from './user.type';
 export class UserResolver {
   constructor(private userService: UserService) {}
 
-  // @ResolveReference()
-  // resolveReference(reference: { __typename: string; username: string }): User {
-  //   const user = this.userService.find(reference.username);
-  //   return user;
-  // }
+  @ResolveReference()
+  resolveReference(reference: { __typename: string; username: string }): User {
+    console.log('resolve reference');
+    const user = this.userService.find(reference.username);
+    return user;
+  }
+
+  @Query(() => [User])
+  users(): User[] {
+    return this.userService.all();
+  }
 
   @ResolveField(() => String)
   fullName(@Parent() parent: User): string {

@@ -5,15 +5,6 @@
   },
   "monorepo": true,
   "projects": {
-    "services": {
-      "type": "library",
-      "root": "libs/services",
-      "entryFile": "index",
-      "sourceRoot": "libs/services/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/services/tsconfig.lib.json"
-      }
-    },
     "types": {
       "type": "library",
       "root": "libs/types",
@@ -41,13 +32,13 @@
         "tsConfigPath": "apps/gql-main/tsconfig.app.json"
       }
     },
-    "gql-subscriptions": {
+    "gql-users": {
       "type": "application",
-      "root": "apps/gql-subscriptions",
+      "root": "apps/gql-users",
       "entryFile": "main",
-      "sourceRoot": "apps/gql-subscriptions/src",
+      "sourceRoot": "apps/gql-users/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gql-subscriptions/tsconfig.app.json"
+        "tsConfigPath": "apps/gql-users/tsconfig.app.json"
       }
     },
     "infrastructure": {

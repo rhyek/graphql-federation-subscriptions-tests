@@ -3,7 +3,7 @@ import { GqlMainModule } from './main.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(GqlMainModule);
-  const port = 3001;
+  const port = 3002;
   await app.listen(port);
   console.log(`gql-main listening on http://localhost:${port}`);
 }

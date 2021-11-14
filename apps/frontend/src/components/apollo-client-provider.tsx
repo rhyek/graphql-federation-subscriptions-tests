@@ -5,13 +5,13 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { memo } from 'react';
 
 const httpLink = new BatchHttpLink({ 
-  uri: 'http://localhost:3001/graphql',
+  uri: 'http://localhost:3000/graphql',
   batchMax: 10, // No more than 10 operations per batch
   batchInterval: 10 // Wait no more than 10ms after first batched operation
 });
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:3001/graphql',
+  uri: 'ws://localhost:3000/graphql',
   options: {
     reconnect: true,
   },

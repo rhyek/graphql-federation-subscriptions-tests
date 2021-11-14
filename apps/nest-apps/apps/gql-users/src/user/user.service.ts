@@ -1,6 +1,6 @@
-import { User } from './user.type';
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
+import { User } from './user.type';
 
 @Injectable()
 export class UserService {
@@ -16,6 +16,10 @@ export class UserService {
       lastName: 'Alemán',
     }),
   ];
+
+  all(): User[] {
+    return this.users;
+  }
 
   find(username: string): User {
     const found = this.users.find((user) => user.username === username);

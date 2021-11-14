@@ -19,6 +19,7 @@ type Message = {
 const messageFields = `
   id
   user {
+    username
     fullName
   }
   message

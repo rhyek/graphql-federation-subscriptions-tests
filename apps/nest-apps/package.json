@@ -10,7 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "nest start --watch --preserveWatchOutput",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -38,10 +38,11 @@
     "pkg-dir": "^5.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "wait-on": "^6.0.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^8.0.0",
+    "@nestjs/cli": "^8.1.4",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
     "@types/express": "^4.17.13",
@@ -49,6 +50,7 @@
     "@types/jest": "^27.0.1",
     "@types/node": "^16.0.0",
     "@types/supertest": "^2.0.11",
+    "@types/wait-on": "^5.3.1",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
@@ -85,7 +87,6 @@
       "<rootDir>/apps/"
     ],
     "moduleNameMapper": {
-      "^@app/services(|/.*)$": "<rootDir>/libs/services/src/$1",
       "^@app/types(|/.*)$": "<rootDir>/libs/types/src/$1",
       "^@app/infrastructure(|/.*)$": "<rootDir>/libs/infrastructure/src/$1"
     }

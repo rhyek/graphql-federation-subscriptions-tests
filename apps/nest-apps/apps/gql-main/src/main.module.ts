@@ -1,17 +1,19 @@
 import path from 'path';
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
+import { GraphQLFederationModule } from '@nestjs/graphql';
 import pkgDir from 'pkg-dir';
-import { UserModule } from './user/user.module';
 import { MessageModule } from './message/message.module';
+import { User } from './message/user.type';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({
+    GraphQLFederationModule.forRoot({
       autoSchemaFile: path.resolve(pkgDir.sync(), './apps/gql-main/schema.gql'),
-      installSubscriptionHandlers: true,
+      // installSubscriptionHandlers: true,
+      buildSchemaOptions: {
+        orphanedTypes: [User],
+      },
     }),
-    UserModule,
     MessageModule,
   ],
 })

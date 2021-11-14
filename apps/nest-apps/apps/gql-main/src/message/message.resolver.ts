@@ -10,14 +10,14 @@ import {
 import { PubSub } from '@app/types';
 import { Message } from './message.type';
 import { MessageService } from './message.service';
-import { User } from '../user/user.type';
-import { UserService } from '../user/user.service';
+import { User } from './user.type';
+// import { UserService } from '../user/user.service';
 
 @Resolver(() => Message)
 export class MessageResolver {
   constructor(
     private messageService: MessageService,
-    private userService: UserService,
+    // private userService: UserService,
     private pubSub: PubSub,
   ) {}
 
@@ -26,16 +26,17 @@ export class MessageResolver {
     return this.messageService.getAll();
   }
 
-  @ResolveField(() => User)
-  user(@Parent() parent: Message): User {
-    const user = this.userService.find(parent.username);
-    return user;
-  }
-
   // @ResolveField(() => User)
-  // user(@Parent() parent: Message): any {
-  //   return { __typename: 'User', username: parent.username };
+  // user(@Parent() parent: Message): User {
+  //   const user = this.userService.find(parent.username);
+  //   return user;
   // }
+
+  @ResolveField(() => User)
+  user(@Parent() parent: Message): any {
+    console.log('user in message resolver');
+    return { __typename: 'User', username: parent.username };
+  }
 
   @Mutation(() => Boolean)
   async addMessage(
@@ -47,8 +48,8 @@ export class MessageResolver {
     return true;
   }
 
-  @Subscription(() => Message)
-  messageAdded() {
-    return this.pubSub.asyncIterator('messageAdded');
-  }
+  // @Subscription(() => Message)
+  // messageAdded() {
+  //   return this.pubSub.asyncIterator('messageAdded');
+  // }
 }

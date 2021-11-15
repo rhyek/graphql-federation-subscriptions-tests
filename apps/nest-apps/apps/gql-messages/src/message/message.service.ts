@@ -12,11 +12,15 @@ export class MessageService {
     },
   ];
 
-  async getAll(): Promise<Message[]> {
+  getAll(): Message[] {
     return this.messages;
   }
 
-  async addMessage(from: string, message: string) {
+  getAllForUsername(username: string): Message[] {
+    return this.messages.filter((message) => message.username === username);
+  }
+
+  addMessage(from: string, message: string) {
     const msg = new Message();
     msg.id = nanoid.nanoid();
     msg.username = from;

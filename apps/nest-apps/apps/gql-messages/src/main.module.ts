@@ -8,7 +8,10 @@ import { User } from './message/user.type';
 @Module({
   imports: [
     GraphQLFederationModule.forRoot({
-      autoSchemaFile: path.resolve(pkgDir.sync(), './apps/gql-main/schema.gql'),
+      autoSchemaFile: path.resolve(
+        pkgDir.sync(),
+        './apps/gql-messages/schema.gql',
+      ),
       // installSubscriptionHandlers: true,
       buildSchemaOptions: {
         orphanedTypes: [User],

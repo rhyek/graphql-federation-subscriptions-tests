@@ -14,13 +14,13 @@ directive @provides(fields: String!) on FIELD_DEFINITION
 
 type Message {
   id: ID!
-  username: String!
   message: String!
   user: User!
 }
 
 type User {
   username: ID!
+  messages: [Message!]!
 }
 
 type Query {

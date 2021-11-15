@@ -24,6 +24,7 @@ import waitOn from 'wait-on';
           },
           gateway: {
             serviceList,
+            experimental_pollInterval: 1_000,
           },
         };
       },

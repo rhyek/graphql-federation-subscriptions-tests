@@ -22,7 +22,7 @@ export class MessageResolver {
   ) {}
 
   @Query(() => [Message])
-  messages(): Promise<Message[]> {
+  messages(): Message[] {
     return this.messageService.getAll();
   }
 

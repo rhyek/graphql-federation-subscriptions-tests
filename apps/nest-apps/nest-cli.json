@@ -23,13 +23,13 @@
         "tsConfigPath": "apps/gql-gateway/tsconfig.app.json"
       }
     },
-    "gql-main": {
+    "gql-messages": {
       "type": "application",
-      "root": "apps/gql-main",
+      "root": "apps/gql-messages",
       "entryFile": "main",
-      "sourceRoot": "apps/gql-main/src",
+      "sourceRoot": "apps/gql-messages/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gql-main/tsconfig.app.json"
+        "tsConfigPath": "apps/gql-messages/tsconfig.app.json"
       }
     },
     "gql-users": {

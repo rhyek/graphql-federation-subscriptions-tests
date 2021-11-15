@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"dev": "concurrently -n frontend,gateway,all,users --kill-others \"(cd apps/frontend; npm run start)\" \"(cd apps/nest-apps; npm run start:dev gql-gateway)\" \"(cd apps/nest-apps; npm run start:dev gql-main)\" \"(cd apps/nest-apps; npm run start:dev gql-users)\""
+		"dev": "concurrently -n frontend,gateway,messages,users --kill-others \"(cd apps/frontend; npm run start)\" \"(cd apps/nest-apps; npm run start:dev gql-gateway)\" \"(cd apps/nest-apps; npm run start:dev gql-messages)\" \"(cd apps/nest-apps; npm run start:dev gql-users)\""
 	},
 	"devDependencies": {
 		"concurrently": "^6.3.0"

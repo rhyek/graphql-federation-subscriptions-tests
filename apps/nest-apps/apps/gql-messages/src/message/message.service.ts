@@ -16,6 +16,14 @@ export class MessageService {
     return this.messages;
   }
 
+  findById(messageId: string): Message {
+    const message = this.messages.find((message) => message.id === messageId);
+    if (!message) {
+      throw new Error('Message not found.');
+    }
+    return message;
+  }
+
   getAllForUsername(username: string): Message[] {
     return this.messages.filter((message) => message.username === username);
   }

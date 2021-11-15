@@ -11,7 +11,7 @@ const httpLink = new BatchHttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:3000/graphql',
+  uri: 'ws://localhost:3003/graphql',
   options: {
     reconnect: true,
   },

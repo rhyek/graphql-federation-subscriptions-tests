@@ -5,9 +5,8 @@ import {
   Query,
   ResolveField,
   Resolver,
-  Subscription,
 } from '@nestjs/graphql';
-import { PubSub } from '@app/types';
+import { MessageAdded, PubSub } from '@app/types';
 import { Message } from './message.type';
 import { MessageService } from './message.service';
 import { UserObject } from './user.type';
@@ -27,6 +26,13 @@ export class MessageResolver {
     return this.messageService.getAll();
   }
 
+  @Query(() => Message)
+  message(
+    @Args('messageId', { type: () => String }) messageId: string,
+  ): Message {
+    return this.messageService.findById(messageId);
+  }
+
   // @ResolveField(() => User)
   // user(@Parent() parent: Message): User {
   //   const user = this.userService.find(parent.username);
@@ -44,7 +50,9 @@ export class MessageResolver {
     @Args('message', { type: () => String }) message: string,
   ): Promise<boolean> {
     const msg = this.messageService.addMessage(from, message);
-    this.pubSub.publish('messageAdded', { messageAdded: msg });
+    this.pubSub.publish('MESSAGE_ADDED', {
+      messageAdded: { messageId: msg.id } as MessageAdded,
+    });
     return true;
   }
 

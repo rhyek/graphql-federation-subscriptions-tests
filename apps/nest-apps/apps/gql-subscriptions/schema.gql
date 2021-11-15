@@ -1,0 +1,15 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type MessageAdded {
+  messageId: String!
+}
+
+type Query {
+  noop: Boolean!
+}
+
+type Subscription {
+  messageAdded: MessageAdded!
+}

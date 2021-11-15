@@ -41,6 +41,15 @@
         "tsConfigPath": "apps/gql-users/tsconfig.app.json"
       }
     },
+    "gql-subscriptions": {
+      "type": "application",
+      "root": "apps/gql-subscriptions",
+      "entryFile": "main",
+      "sourceRoot": "apps/gql-subscriptions/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gql-subscriptions/tsconfig.app.json"
+      }
+    },
     "infrastructure": {
       "type": "library",
       "root": "libs/infrastructure",

@@ -25,6 +25,7 @@ type User {
 
 type Query {
   messages: [Message!]!
+  message(messageId: String!): Message!
 }
 
 type Mutation {

@@ -1,4 +1,4 @@
-import { useMutation, useQuery, gql } from '@apollo/client';
+import { useMutation, useQuery, gql, useApolloClient, useSubscription } from '@apollo/client';
 import {
   FormEventHandler,
   memo,
@@ -33,10 +33,18 @@ const MESSAGES_QUERY = gql`
   }
 `;
 
+const MESSAGE_QUERY = gql`
+  query GetMessage($messageId: String!) {
+    message(messageId: $messageId) {
+      ${messageFields}
+    }
+  }
+`;
+
 const MESSAGES_SUBSCRIPTION = gql`
   subscription OnMessageAdded {
     messageAdded {
-      ${messageFields}
+      messageId
     }
   }
 `;
@@ -55,7 +63,7 @@ export const Chat = memo<{ username: string }>(({ username }) => {
     textRef.current?.focus();
   }, []);
 
-  const { loading, error, data, subscribeToMore } = useQuery<{
+  const { loading, error, data, updateQuery } = useQuery<{
     messages: Message[];
   }>(MESSAGES_QUERY);
 
@@ -70,22 +78,36 @@ export const Chat = memo<{ username: string }>(({ username }) => {
       scrollToBottom();
     }
   }, [loading, scrollToBottom]);
+  
+  const apolloClient = useApolloClient();
 
-  useEffect(() => {
-    // https://www.apollographql.com/docs/react/data/subscriptions/#subscribing-to-updates-for-a-query
-    const unsubscribe = subscribeToMore<{ messageAdded: Message }>({
-      document: MESSAGES_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        const { messageAdded } = subscriptionData.data;
-        scrollToBottom();
-        return {
-          messages: [...prev.messages, messageAdded],
-        };
+  useSubscription<{ messageAdded: { messageId: string;} }>(
+    MESSAGES_SUBSCRIPTION,
+    {
+      // https://github.com/apollographql/apollo-client/issues/6037
+      // https://github.com/apollographql/apollo-client/issues/6348
+      onSubscriptionData: ({ subscriptionData }) => {
+        const { data } = subscriptionData;
+        if (data) {
+          apolloClient
+            .query<{ message: Message }>({
+              query: MESSAGE_QUERY,
+              variables: {
+                messageId: data.messageAdded.messageId,
+              },
+            })
+            .then(({ data }) => {
+              updateQuery((prev) => {
+                return {
+                  messages: [...prev.messages, data.message],
+                };
+              });
+              scrollToBottom();
+            });
+        }
       },
-    });
-    return unsubscribe;
-  }, [subscribeToMore, scrollToBottom]);
+    }
+  );
 
   const [addMessage] = useMutation(ADD_MESSAGE_MUTATION);
 

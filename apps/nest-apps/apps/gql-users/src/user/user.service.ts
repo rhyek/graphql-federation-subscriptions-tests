@@ -1,27 +1,27 @@
+import { UserEntity } from '@app/types';
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { User } from './user.type';
 
 @Injectable()
 export class UserService {
-  private users: User[] = [
-    plainToClass(User, {
+  private users: UserEntity[] = [
+    plainToClass(UserEntity, {
       username: 'carlos',
       firstName: 'Carlos',
       lastName: 'González',
     }),
-    plainToClass(User, {
+    plainToClass(UserEntity, {
       username: 'lina',
       firstName: 'Lina',
       lastName: 'Alemán',
     }),
   ];
 
-  all(): User[] {
+  all(): UserEntity[] {
     return this.users;
   }
 
-  find(username: string): User {
+  find(username: string): UserEntity {
     const found = this.users.find((user) => user.username === username);
     if (!found) {
       throw new Error('user not found');

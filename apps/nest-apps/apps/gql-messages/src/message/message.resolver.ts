@@ -10,7 +10,8 @@ import {
 import { PubSub } from '@app/types';
 import { Message } from './message.type';
 import { MessageService } from './message.service';
-import { User } from './user.type';
+import { UserObject } from './user.type';
+import { Reference } from '@app/types/reference';
 // import { UserService } from '../user/user.service';
 
 @Resolver(() => Message)
@@ -32,9 +33,8 @@ export class MessageResolver {
   //   return user;
   // }
 
-  @ResolveField(() => User)
-  user(@Parent() parent: Message): any {
-    console.log('user in message resolver');
+  @ResolveField(() => UserObject)
+  user(@Parent() parent: Message): Reference<UserObject, 'username'> {
     return { __typename: 'User', username: parent.username };
   }
 
@@ -43,7 +43,7 @@ export class MessageResolver {
     @Args('from', { type: () => String }) from: string,
     @Args('message', { type: () => String }) message: string,
   ): Promise<boolean> {
-    const msg = await this.messageService.addMessage(from, message);
+    const msg = this.messageService.addMessage(from, message);
     this.pubSub.publish('messageAdded', { messageAdded: msg });
     return true;
   }

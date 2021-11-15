@@ -1,3 +1,4 @@
+import { Reference } from '@app/types/reference';
 import {
   Parent,
   Query,
@@ -6,26 +7,25 @@ import {
   ResolveReference,
 } from '@nestjs/graphql';
 import { UserService } from './user.service';
-import { User } from './user.type';
+import { UserObject } from './user.type';
 
-@Resolver(() => User)
+@Resolver(() => UserObject)
 export class UserResolver {
   constructor(private userService: UserService) {}
 
   @ResolveReference()
-  resolveReference(reference: { __typename: string; username: string }): User {
-    console.log('resolve reference');
+  resolveReference(reference: Reference<UserObject, 'username'>): UserObject {
     const user = this.userService.find(reference.username);
     return user;
   }
 
-  @Query(() => [User])
-  users(): User[] {
+  @Query(() => [UserObject])
+  users(): UserObject[] {
     return this.userService.all();
   }
 
   @ResolveField(() => String)
-  fullName(@Parent() parent: User): string {
+  fullName(@Parent() parent: UserObject): string {
     return `${parent.firstName} ${parent.lastName}`;
   }
 }

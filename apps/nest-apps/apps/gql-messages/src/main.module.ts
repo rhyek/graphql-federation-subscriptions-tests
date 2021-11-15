@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLFederationModule } from '@nestjs/graphql';
 import pkgDir from 'pkg-dir';
 import { MessageModule } from './message/message.module';
-import { User } from './message/user.type';
+import { UserObject } from './message/user.type';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { User } from './message/user.type';
       ),
       // installSubscriptionHandlers: true,
       buildSchemaOptions: {
-        orphanedTypes: [User],
+        orphanedTypes: [UserObject],
       },
     }),
     MessageModule,

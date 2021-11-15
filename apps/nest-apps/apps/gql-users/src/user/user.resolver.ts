@@ -25,7 +25,7 @@ export class UserResolver {
   }
 
   @ResolveField(() => String)
-  fullName(@Parent() parent: UserObject): string {
-    return `${parent.firstName} ${parent.lastName}`;
+  fullName(@Parent() user: UserObject): string {
+    return `${user.firstName} ${user.lastName}`;
   }
 }

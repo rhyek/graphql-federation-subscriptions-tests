@@ -8,7 +8,7 @@ export class UserResolver {
   constructor(private readonly messageService: MessageService) {}
 
   @ResolveField(() => [Message])
-  messages(@Parent() parent: UserObject): Message[] {
-    return this.messageService.getAllForUsername(parent.username);
+  messages(@Parent() user: UserObject): Message[] {
+    return this.messageService.getAllForUsername(user.username);
   }
 }

@@ -34,8 +34,8 @@ export class MessageResolver {
   // }
 
   @ResolveField(() => UserObject)
-  user(@Parent() parent: Message): Reference<UserObject, 'username'> {
-    return { __typename: 'User', username: parent.username };
+  user(@Parent() message: Message): Reference<UserObject, 'username'> {
+    return { __typename: 'User', username: message.username };
   }
 
   @Mutation(() => Boolean)
